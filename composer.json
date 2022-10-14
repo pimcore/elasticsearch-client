@@ -1,0 +1,23 @@
+{
+  "name": "pimcore/elastic-search-client",
+  "license": "GPL-3.0+",
+  "type": "symfony-bundle",
+  "config": {
+    "sort-packages": true
+  },
+  "require": {
+    "elasticsearch/elasticsearch": "^8.0",
+    "symfony/config": "^5.2.0 || ^6.0",
+    "symfony/dependency-injection": "^5.2.0 || ^6.0",
+    "symfony/http-kernel": "^5.2.0 || ^6.0",
+    "psr/log": "*"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pimcore\\Bundle\\ElasticsearchClientBundle\\": "src/"
+    }
+  }
+}

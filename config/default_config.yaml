@@ -1,0 +1,3 @@
+pimcore_elasticsearch_client:
+   es_clients:
+        default:

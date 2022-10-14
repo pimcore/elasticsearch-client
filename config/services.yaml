@@ -1,0 +1,8 @@
+services:
+
+    Pimcore\Bundle\ElasticsearchClientBundle\MyService:
+        class: Pimcore\Bundle\ElasticsearchClientBundle\MyService
+        factory: [ 'Pimcore\Bundle\ElasticSearchClientBundle\MyServiceFactory', create ]
+        arguments: ['@logger']
+        tags:
+            - { name: monolog.logger, channel: elasticsearch.es }
