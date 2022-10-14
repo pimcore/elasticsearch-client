@@ -1,5 +1,5 @@
 {
-  "name": "pimcore/elastic-search-client",
+  "name": "pimcore/elasticsearch-client",
   "license": "GPL-3.0+",
   "type": "symfony-bundle",
   "config": {
