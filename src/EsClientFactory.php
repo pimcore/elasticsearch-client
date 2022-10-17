@@ -27,7 +27,7 @@ class EsClientFactory
             ->setHosts($configuration['hosts'])
             ->setLogger($logger);
 
-        if (isset($configuration['username']) && isset($configuration['password'])) {
+        if (isset($configuration['username'], $configuration['password'])) {
             $builder->setBasicAuthentication($configuration['username'], $configuration['password']);
         }
 
