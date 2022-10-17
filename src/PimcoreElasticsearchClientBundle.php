@@ -19,16 +19,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class PimcoreElasticsearchClientBundle extends Bundle
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getPath(): string
     {
-        if (null === $this->path) {
-            $reflected = new \ReflectionObject($this);
-            $this->path = \dirname($reflected->getFileName(), 2);
-        }
-
-        return $this->path;
+        return \dirname(__DIR__);
     }
 }
