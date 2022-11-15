@@ -10,6 +10,11 @@ Supported elasticsearch version: Elasticsearch 8
 
 ## Installation
 
+Install bundle via composer
+```bash
+composer require pimcore/elasticsearch-client
+```
+
 This bundle is a standard symfony bundle. If not required and activated by another bundle, it can be enabled by 
 adding it to the `bundles.php` of your application. 
 
@@ -24,6 +29,8 @@ By default, a `default` client with host set to `localhost:9200` is available an
 For details on the configuration opens have a look at inline documentation via command 
 `bin/console config:dump-reference PimcoreElasticsearchClientBundle`
 
+Also see the [Elasticsearch Docs](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/connecting.html) for 
+more information.
 
 ```yaml
 pimcore_elasticsearch_client:
@@ -36,7 +43,20 @@ pimcore_elasticsearch_client:
         statistics:
             hosts: ['statistics-node:9200']
             logger_channel: 'pimcore.statistics'
- 
+            
+            #optional options
+            ca_bundle: 'path/to/ca/cert'
+            ssl_key: 'path/to/ssl/key'
+            ssl_cert: 'path/to/ssl/cert'
+            ssl_password: 'secretePW'
+            ssl_verification: false #false is the default value
+            http_options:
+                proxy: 'http://localhost:8125'
+            cloud_id: '123456789'
+            api_key: 'secret-apikey'
+        cloud:
+            cloud_id: '123456789'
+            api_key: 'secret-apikey'
 ```
 
 ## Integration into other Bundles
