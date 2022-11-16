@@ -31,27 +31,27 @@ class EsClientFactory
             $builder->setBasicAuthentication($configuration['username'], $configuration['password']);
         }
 
-        if(isset($configuration['cloud_id'], $configuration['api_key'])){
+        if (isset($configuration['cloud_id'], $configuration['api_key'])) {
             $builder
                 ->setElasticCloudId($configuration['cloud_id'])
                 ->setApiKey($configuration['api_key']);
         }
 
-        if(isset($configuration['ca_bundle'])){
+        if (isset($configuration['ca_bundle'])) {
             $builder->setCABundle($configuration['ca_bundle']);
         }
 
-        if(isset($configuration['ssl_key']) && $configuration['ssl_cert']){
+        if (isset($configuration['ssl_key']) && $configuration['ssl_cert']) {
             $builder
                 ->setSSLKey($configuration['ssl_key'], $configuration['ssl_password'] ?? null)
                 ->setSSLCert($configuration['ssl_cert'], $configuration['ssl_password'] ?? null);
 
-            if(isset($configuration['ssl_verification'])){
+            if (isset($configuration['ssl_verification'])) {
                 $builder->setSSLVerification($configuration['ssl_verification']);
             }
         }
 
-        if(isset($configuration['http_options'])){
+        if (isset($configuration['http_options'])) {
             $builder->setHttpClientOptions($configuration['http_options']);
         }
 
