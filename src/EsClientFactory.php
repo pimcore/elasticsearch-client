@@ -45,10 +45,10 @@ class EsClientFactory
             $builder
                 ->setSSLKey($configuration['ssl_key'], $configuration['ssl_password'] ?? null)
                 ->setSSLCert($configuration['ssl_cert'], $configuration['ssl_password'] ?? null);
+        }
 
-            if (isset($configuration['ssl_verification'])) {
-                $builder->setSSLVerification($configuration['ssl_verification']);
-            }
+        if (isset($configuration['ssl_verification'])) {
+            $builder->setSSLVerification($configuration['ssl_verification']);
         }
 
         if (isset($configuration['http_options'])) {

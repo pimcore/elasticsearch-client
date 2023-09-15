@@ -63,7 +63,7 @@ class Configuration implements ConfigurationInterface
                             ->info('If private key and certificate require a password (default: null)')
                         ->end()
                         ->booleanNode('ssl_verification')
-                            ->info('Enable or disable the SSL verification (default: false)')
+                            ->info('Enable or disable the SSL verification (default: true)')
                         ->end()
                         ->arrayNode('http_options')
                             ->prototype('scalar')->end()
