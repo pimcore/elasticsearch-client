@@ -49,7 +49,7 @@ pimcore_elasticsearch_client:
             ssl_key: 'path/to/ssl/key'
             ssl_cert: 'path/to/ssl/cert'
             ssl_password: 'secretePW'
-            ssl_verification: false #false is the default value
+            ssl_verification: false #true is the default value
             http_options:
                 proxy: 'http://localhost:8125'
             cloud_id: '123456789'
