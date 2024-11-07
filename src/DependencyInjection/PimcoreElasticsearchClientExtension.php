@@ -29,6 +29,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 class PimcoreElasticsearchClientExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
     const CLIENT_SERVICE_PREFIX = 'pimcore.elasticsearch_client.';
+
     const PIMCORE_CLIENT_PREFIX = 'pimcore.elasticsearch.custom_client.';
 
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
