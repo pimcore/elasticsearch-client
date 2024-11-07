@@ -81,6 +81,20 @@ final class SearchClient implements ElasticsearchClientInterface
     /**
      * @throws ClientException
      */
+    public function exists(array $params): bool
+    {
+        try {
+            return $this->getBoolResponse($this->client->exists($params));
+        } catch (Exception $exception) {
+            throw new ClientException(
+                sprintf('Failed to check if data exists: %s', $exception->getMessage())
+            );
+        }
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function count(array $params): array
     {
         try {
@@ -95,6 +109,20 @@ final class SearchClient implements ElasticsearchClientInterface
     /**
      * @throws ClientException
      */
+    public function index(array $params): array
+    {
+        try {
+            return $this->getArrayResponse($this->client->index($params));
+        } catch (Exception $exception) {
+            throw new ClientException(
+                sprintf('Index operation failed: %s', $exception->getMessage())
+            );
+        }
+    }
+
+    /**
+     * @throws ClientException
+     */
     public function bulk(array $params): array
     {
         try {
@@ -102,6 +130,20 @@ final class SearchClient implements ElasticsearchClientInterface
         } catch (Exception $exception) {
             throw new ClientException(
                 sprintf('Bulk operation failed: %s', $exception->getMessage())
+            );
+        }
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function delete(array $params): array
+    {
+        try {
+            return $this->getArrayResponse($this->client->delete($params));
+        } catch (Exception $exception) {
+            throw new ClientException(
+                sprintf('Delete operation failed: %s', $exception->getMessage())
             );
         }
     }
@@ -144,6 +186,48 @@ final class SearchClient implements ElasticsearchClientInterface
         } catch (Exception $exception) {
             throw new ClientException(
                 sprintf('Failed to create index: %s', $exception->getMessage())
+            );
+        }
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function openIndex(array $params): array
+    {
+        try {
+            return $this->getArrayResponse($this->client->indices()->create($params));
+        } catch (Exception $exception) {
+            throw new ClientException(
+                sprintf('Failed to open index: %s', $exception->getMessage())
+            );
+        }
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function closeIndex(array $params): array
+    {
+        try {
+            return $this->getArrayResponse($this->client->indices()->create($params));
+        } catch (Exception $exception) {
+            throw new ClientException(
+                sprintf('Failed to close index: %s', $exception->getMessage())
+            );
+        }
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function getAllIndices(array $params): array
+    {
+        try {
+            return $this->getArrayResponse($this->client->cat()->indices($params));
+        } catch (Exception $exception) {
+            throw new ClientException(
+                sprintf('Failed to get all indices: %s', $exception->getMessage())
             );
         }
     }
@@ -312,6 +396,20 @@ final class SearchClient implements ElasticsearchClientInterface
         } catch (Exception $exception) {
             throw new ClientException(
                 sprintf('Failed to get Mapping: %s', $exception->getMessage())
+            );
+        }
+    }
+
+    /**
+     * @throws ClientException
+     */
+    public function getIndexSettings(array $params): array
+    {
+        try {
+            return $this->getArrayResponse($this->client->indices()->getSettings($params));
+        } catch (Exception $exception) {
+            throw new ClientException(
+                sprintf('Failed to get index settings: %s', $exception->getMessage())
             );
         }
     }
