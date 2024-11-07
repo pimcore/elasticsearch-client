@@ -151,7 +151,7 @@ final class SearchClient implements ElasticsearchClientInterface
     public function deleteByQuery(array $params): array
     {
         try {
-            return $this->getArrayResponse($this->client->updateByQuery($params));
+            return $this->getArrayResponse($this->client->deleteByQuery($params));
         } catch (Exception $exception) {
             return $this->handleExceptionsWithArray($exception, 'Failed to delete by query');
         }
@@ -175,7 +175,7 @@ final class SearchClient implements ElasticsearchClientInterface
     public function openIndex(array $params): array
     {
         try {
-            return $this->getArrayResponse($this->client->indices()->create($params));
+            return $this->getArrayResponse($this->client->indices()->open($params));
         } catch (Exception $exception) {
             return $this->handleExceptionsWithArray($exception, 'Failed to open index');
         }
@@ -187,7 +187,7 @@ final class SearchClient implements ElasticsearchClientInterface
     public function closeIndex(array $params): array
     {
         try {
-            return $this->getArrayResponse($this->client->indices()->create($params));
+            return $this->getArrayResponse($this->client->indices()->close($params));
         } catch (Exception $exception) {
             return $this->handleExceptionsWithArray($exception, 'Failed to close index');
         }
