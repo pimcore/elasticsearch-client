@@ -17,6 +17,7 @@ namespace Pimcore\Bundle\ElasticsearchClientBundle\DependencyInjection;
 
 use Elastic\Elasticsearch\Client;
 use Pimcore\Bundle\ElasticsearchClientBundle\EsClientFactory;
+use Pimcore\Bundle\ElasticsearchClientBundle\SearchClient\SearchClient;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -28,6 +29,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 class PimcoreElasticsearchClientExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
     const CLIENT_SERVICE_PREFIX = 'pimcore.elasticsearch_client.';
+    const PIMCORE_CLIENT_PREFIX = 'pimcore.elasticsearch.custom_client.';
 
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
     {
@@ -43,6 +45,10 @@ class PimcoreElasticsearchClientExtension extends ConfigurableExtension implemen
             $definition->setArgument('$configuration', $clientConfig);
             $definition->addTag('monolog.logger', ['channel' => $clientConfig['logger_channel']]);
             $definitions[self::CLIENT_SERVICE_PREFIX . $name] = $definition;
+
+            $customClientDefinition = new Definition(SearchClient::class);
+            $customClientDefinition->setArgument('$client', $definition);
+            $definitions[self::PIMCORE_CLIENT_PREFIX . $name] = $customClientDefinition;
         }
 
         $container->addDefinitions($definitions);
