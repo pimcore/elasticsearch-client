@@ -199,6 +199,8 @@ final class SearchClient implements ElasticsearchClientInterface
     public function getAllIndices(array $params): array
     {
         try {
+            $params = array_merge($params, ['format' => 'json']);
+
             return $this->getArrayResponse($this->client->cat()->indices($params));
         } catch (Exception $exception) {
             return $this->handleExceptionsWithArray($exception, 'Failed to get all indices');
@@ -307,6 +309,8 @@ final class SearchClient implements ElasticsearchClientInterface
     public function getAllIndexAliases(array $params): array
     {
         try {
+            $params = array_merge($params, ['format' => 'json']);
+
             return $this->getArrayResponse($this->client->cat()->aliases($params));
         } catch (Exception $exception) {
             return $this->handleExceptionsWithArray($exception, 'Failed to get all index Aliases');
