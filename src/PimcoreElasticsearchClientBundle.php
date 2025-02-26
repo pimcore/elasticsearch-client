@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /**
  * Pimcore
  *
@@ -15,10 +15,17 @@
 
 namespace Pimcore\Bundle\ElasticsearchClientBundle;
 
+use Pimcore\Bundle\ElasticsearchClientBundle\DependencyInjection\PimcoreElasticsearchClientExtension;
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class PimcoreElasticsearchClientBundle extends Bundle
 {
+    public function getContainerExtension(): ExtensionInterface
+    {
+        return new PimcoreElasticsearchClientExtension();
+    }
+
     public function getPath(): string
     {
         return \dirname(__DIR__);
