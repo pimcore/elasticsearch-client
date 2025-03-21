@@ -32,7 +32,7 @@ class PimcoreElasticsearchClientExtension extends ConfigurableExtension implemen
 
     const PIMCORE_CLIENT_PREFIX = 'pimcore.elasticsearch.custom_client.';
 
-    protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
+    protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('services.yaml');
@@ -55,7 +55,7 @@ class PimcoreElasticsearchClientExtension extends ConfigurableExtension implemen
         $container->addDefinitions($definitions);
     }
 
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('default_config.yaml');
