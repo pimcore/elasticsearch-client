@@ -1,6 +1,6 @@
 {
   "name": "pimcore/elasticsearch-client",
-  "license": "GPL-3.0+",
+  "license": "Pimcore Open Core License (POCL)",
   "type": "symfony-bundle",
   "config": {
     "sort-packages": true
