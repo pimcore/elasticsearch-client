@@ -15,7 +15,7 @@ on:
 jobs:
   static-analysis-phpstan:
     name: "Static Analysis with PHPStan"
-    uses: pimcore/workflows-collection-public/.github/workflows/reusable-static-analysis-unified.yaml@reusable-workflows
+    uses: pimcore/workflows-collection-public/.github/workflows/reusable-static-analysis-unified.yaml@main
     with:
       phpstan_matrix: >-
         {"include":[{"php-version":"8.4","dependencies":"lowest","experimental":false},{"php-version":"8.5","dependencies":"highest","experimental":false}]}
