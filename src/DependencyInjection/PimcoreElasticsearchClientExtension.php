@@ -37,6 +37,10 @@ class PimcoreElasticsearchClientExtension extends ConfigurableExtension implemen
         $definitions = [];
 
         foreach ($mergedConfig['es_clients'] as $name => $clientConfig) {
+            if (isset($clientConfig['dsn']) && $clientConfig['dsn'] !== null && $clientConfig['dsn'] !== '') {
+                $clientConfig = $this->parseDsn($clientConfig['dsn'], $clientConfig);
+            }
+
             $definition = new Definition(Client::class);
             $definition->setFactory(EsClientFactory::class . '::create');
             $definition->setArgument('$logger', new Reference('logger'));
@@ -56,5 +60,43 @@ class PimcoreElasticsearchClientExtension extends ConfigurableExtension implemen
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('default_config.yaml');
+    }
+
+    /**
+     * Parse DSN into config array, merging with existing config.
+     * DSN format: elasticsearch://user:pass@host:port?ssl_verify=bool
+     *
+     * DSN values override file-based config for: hosts, username, password, ssl_verification.
+     * Other config keys (logger_channel, ca_bundle, ssl_key, ssl_cert, cloud_id, api_key) remain from file config.
+     */
+    private function parseDsn(string $dsn, array $config): array
+    {
+        $parsed = parse_url($dsn);
+        if ($parsed === false) {
+            throw new \InvalidArgumentException(sprintf(
+                'Invalid Elasticsearch DSN: "%s"',
+                $dsn,
+            ));
+        }
+
+        $host = $parsed['host'] ?? 'localhost';
+        $port = $parsed['port'] ?? 9200;
+        $config['hosts'] = [sprintf('%s:%d', $host, $port)];
+
+        if (isset($parsed['user'])) {
+            $config['username'] = rawurldecode($parsed['user']);
+        }
+        if (isset($parsed['pass'])) {
+            $config['password'] = rawurldecode($parsed['pass']);
+        }
+
+        if (isset($parsed['query'])) {
+            parse_str($parsed['query'], $queryParams);
+            if (isset($queryParams['ssl_verify'])) {
+                $config['ssl_verification'] = $queryParams['ssl_verify'] === 'true';
+            }
+        }
+
+        return $config;
     }
 }
