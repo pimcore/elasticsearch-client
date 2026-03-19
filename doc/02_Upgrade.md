@@ -2,7 +2,6 @@
 Following steps are necessary during updating to newer versions.
 
 ## Upgrade to 2026.1.0
+- Added DSN-based configuration support. The Elasticsearch client can now be configured via a single DSN string using the `PIMCORE_ELASTICSEARCH_DSN` environment variable (e.g. `elasticsearch://elastic:secret@elasticsearch:9200?ssl=false&ssl_verify=false`). The DSN is parsed at runtime in the client factory and overrides individual `hosts`, `username`, `password`, and `ssl_verification` settings. SSL defaults to `false` (HTTP) when using DSN.
 - Added support to `PHP` `8.5`.
 - Removed support to `PHP` `8.3` and Symfony `v6`.
-
- 
