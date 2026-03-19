@@ -20,6 +20,10 @@ class EsClientFactory
 {
     public static function create(LoggerInterface $logger, array $configuration): Client
     {
+        if (isset($configuration['dsn']) && $configuration['dsn'] !== null && $configuration['dsn'] !== '') {
+            $configuration = self::parseDsn($configuration['dsn'], $configuration);
+        }
+
         $builder = ClientBuilder::create()
             ->setHosts($configuration['hosts'])
             ->setLogger($logger);
@@ -53,5 +57,50 @@ class EsClientFactory
         }
 
         return $builder->build();
+    }
+
+    /**
+     * Parse DSN into config array, merging with existing config.
+     * DSN format: elasticsearch://user:pass@host:port?ssl=bool&ssl_verify=bool
+     *
+     * DSN values override file-based config for: hosts, username, password, ssl_verification.
+     * The `ssl` query parameter controls whether HTTPS or HTTP is used (default: false).
+     * The `ssl_verify` query parameter controls certificate verification (independent of `ssl`).
+     * Other config keys (logger_channel, ca_bundle, ssl_key, ssl_cert, cloud_id, api_key) remain from file config.
+     */
+    private static function parseDsn(string $dsn, array $configuration): array
+    {
+        $parsed = parse_url($dsn);
+        if ($parsed === false) {
+            throw new \InvalidArgumentException(sprintf(
+                'Invalid Elasticsearch DSN: "%s"',
+                $dsn,
+            ));
+        }
+
+        $host = $parsed['host'] ?? 'localhost';
+        $port = $parsed['port'] ?? 9200;
+
+        $queryParams = [];
+        if (isset($parsed['query'])) {
+            parse_str($parsed['query'], $queryParams);
+        }
+
+        $useSsl = ($queryParams['ssl'] ?? 'false') === 'true';
+        $protocol = $useSsl ? 'https' : 'http';
+        $configuration['hosts'] = [sprintf('%s://%s:%d', $protocol, $host, $port)];
+
+        if (isset($parsed['user'])) {
+            $configuration['username'] = rawurldecode($parsed['user']);
+        }
+        if (isset($parsed['pass'])) {
+            $configuration['password'] = rawurldecode($parsed['pass']);
+        }
+
+        if (isset($queryParams['ssl_verify'])) {
+            $configuration['ssl_verification'] = $queryParams['ssl_verify'] === 'true';
+        }
+
+        return $configuration;
     }
 }
