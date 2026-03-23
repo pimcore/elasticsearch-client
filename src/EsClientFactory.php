@@ -20,7 +20,7 @@ class EsClientFactory
 {
     public static function create(LoggerInterface $logger, array $configuration): Client
     {
-        if (isset($configuration['dsn']) && $configuration['dsn'] !== null && $configuration['dsn'] !== '') {
+        if (isset($configuration['dsn']) && $configuration['dsn'] !== '') {
             $configuration = self::parseDsn($configuration['dsn'], $configuration);
         }
 
