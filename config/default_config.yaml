@@ -1,3 +1,4 @@
 pimcore_elasticsearch_client:
    es_clients:
         default:
+            dsn: '%env(default::PIMCORE_ELASTICSEARCH_DSN)%'
