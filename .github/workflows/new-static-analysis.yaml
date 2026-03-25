@@ -22,7 +22,6 @@ jobs:
       private_repo: ${{ github.event.repository.private }}
       APP_ENV: test
       PIMCORE_TEST: "false"
-      REQUIRE_ADMIN_BUNDLE: "false"
       COVERAGE: "none"
       INSTALL_PIMCORE: "false"
     secrets:
