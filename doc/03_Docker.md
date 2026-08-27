@@ -118,7 +118,7 @@ services:
 
     kibana:
         container_name: kibana-10
-        image: kibana:8.4.3
+        image: kibana:8.12.2
         ports:
             - 5601:5601
         environment:
