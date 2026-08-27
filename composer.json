@@ -10,7 +10,7 @@
   "require": {
     "php": "~8.4.0 || ~8.5.0",
     "pimcore/pimcore": "^2026.1",
-    "elasticsearch/elasticsearch": "^8.0",
+    "elasticsearch/elasticsearch": "^8.12",
     "psr/log": "*"
   },
   "require-dev": {
@@ -23,7 +23,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-2026.x": "2026.1.x-dev"
+      "dev-2026.x": "2026.3.x-dev"
     }
   }
 }

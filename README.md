@@ -6,7 +6,7 @@ other bundles.
 It allows to configure one or more elasticsearch clients with different configuration settings. The corresponding 
 settings are then registered as services and can be injected into any services. 
 
-Supported elasticsearch version: Elasticsearch 8
+Supported elasticsearch version: Elasticsearch 8, version `8.12.2` or higher
 
 ## Installation
 
