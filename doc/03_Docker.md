@@ -26,7 +26,7 @@ services:
 
     create_certs:
         container_name: elastic_create_certs
-        image: elasticsearch:8.4.3
+        image: elasticsearch:8.12.2
         command: >
             bash -c '
                 if [[ ! -f ./certs/certs-bundle.zip ]]; then
@@ -71,7 +71,7 @@ services:
 
     elastic:
         container_name: elastic-10
-        image: elasticsearch:8.4.3
+        image: elasticsearch:8.12.2
         environment:
             - discovery.type=single-node
             - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
