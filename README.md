@@ -6,7 +6,10 @@ other bundles.
 It allows to configure one or more elasticsearch clients with different configuration settings. The corresponding 
 settings are then registered as services and can be injected into any services. 
 
-Supported elasticsearch version: Elasticsearch 8, version `8.12.2` or higher
+Supported Elasticsearch versions: Elasticsearch 8 (`8.12.2` or higher) and Elasticsearch 9. Use the
+`elasticsearch/elasticsearch` client major that matches the server major: a 9.x client is rejected by an 8.x
+cluster, while an 8.x client still works against a 9.x cluster through Elastic's REST API compatibility mode
+(one major back). See [Upgrade](./doc/02_Upgrade.md).
 
 ## Installation
 
